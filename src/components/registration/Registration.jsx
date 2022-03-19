@@ -9,7 +9,7 @@ import Login from "../login/Login";
 import Auth from "./../../hooks/auth";
 
 const Registration = () => {
-  const { loginUser } = Auth();
+  const { user, currentUser, loginUser } = Auth();
   const [check, setCheck] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -24,12 +24,17 @@ const Registration = () => {
     console.log("check", check);
   };
   useEffect(() => {
-    // const db = JSON.parse(localStorage.getItem("chat-app-user"));
-    // if (db?.token) {
-    //   navigate("/chat");
-    // } else {
-    //   navigate("/");
-    // }
+    if (user !== "") {
+      const db = JSON.parse(localStorage.getItem("chat-app-user"));
+      if (db?.token) {
+        navigate("/chat");
+      } else {
+        navigate("/");
+      }
+    } else {
+      return;
+    }
+    currentUser();
   }, []);
   const handleRegistration = (e) => {
     e.preventDefault();

@@ -14,7 +14,7 @@ const Login = () => {
     e.preventDefault();
     loginUser(loginEamil, loginPassword);
     if (loginEamil === "") {
-      alert("kkkkkkkkkk");
+      return;
     }
 
     console.log("email", loginEamil, loginPassword);

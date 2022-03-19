@@ -10,7 +10,7 @@ const Chat = () => {
   const { user, currentUser, logot } = Auth();
   const [users, setUsers] = useState([]);
   const [isloading, setIsloading] = useState(false);
-  const db = JSON.parse(localStorage.getItem("chat-app-user"));
+  const db = JSON?.parse(localStorage.getItem("chat-app-user"));
   const token = db?.token;
   const { exp } = jwt_decode(token);
   const expirationTime = exp * 1000;

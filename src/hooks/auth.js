@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { loginApi } from "../api/api";
@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 const Auth = () => {
   const [user, setUser] = useState("");
   const navigate = useNavigate();
+
   const loginUser = (email, password) => {
     axios
       .post(loginApi, {
@@ -13,11 +14,37 @@ const Auth = () => {
         password: password,
       })
       .then((res) => {
-        console.log(res);
+        if (res.data.message === "incorrect Email") {
+          toast.error("incorrect Email ", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+          navigate("/");
+          return;
+        }
+        if (res.data.message === "wrong password") {
+          toast.error("wrong password", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+          navigate("/");
+          return;
+        }
+
         if (res.statusText === "OK") {
           localStorage.setItem("chat-app-user", JSON.stringify(res.data.user));
+          navigate("/chat");
         }
-        navigate("/chat");
 
         if (res.data.status === false) {
           toast.error(" user not authenticated", {
