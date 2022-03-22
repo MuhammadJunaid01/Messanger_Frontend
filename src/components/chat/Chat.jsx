@@ -3,19 +3,18 @@ import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import Auth from "../../hooks/auth";
-import { getallUsers } from "./../../api/api";
+import { baseUrlImage, getallUsers } from "./../../api/api";
 import axios from "axios";
 const Chat = () => {
   const navigate = useNavigate();
-  const { user, currentUser, logot } = Auth();
+  const { user, currentUser, logot, userProfilePic, data } = Auth();
   const [users, setUsers] = useState([]);
   const [isloading, setIsloading] = useState(false);
   const db = JSON?.parse(localStorage.getItem("chat-app-user"));
   const token = db?.token;
   const { exp } = jwt_decode(token);
   const expirationTime = exp * 1000;
-  console.log(Date.now());
-  console.log("expire", expirationTime);
+
   useEffect(() => {
     if (expirationTime < Date.now()) {
       alert("hi storage");
@@ -40,12 +39,17 @@ const Chat = () => {
         setIsloading(false);
       });
   }, []);
-  console.log(users);
-  return (
+  console.log("chat app", data);
+  return user ? (
     <div>
       <Container>
         <Row>
           <Col xs={12} md={4} lg={4}>
+            <img
+              style={{ height: "50px", width: "50px" }}
+              src={baseUrlImage + userProfilePic}
+              alt="lllll"
+            />
             <h1>{user}</h1>
             {users?.map((user, index) => (
               <div key={index}>
@@ -58,6 +62,10 @@ const Chat = () => {
           </Col>
         </Row>
       </Container>
+    </div>
+  ) : (
+    <div>
+      <h1>User Not Found Please Register Or Login</h1>
     </div>
   );
 };

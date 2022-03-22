@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./registration.css";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
-import { loginApi, registerApi } from "./../../api/api";
+import { loginApi, registerApi, test } from "./../../api/api";
 import CheckToken from "./../../hooks/checkToken";
 import { useNavigate } from "react-router-dom";
 import Login from "../login/Login";
@@ -17,6 +17,7 @@ const Registration = () => {
   const [conFirmedPass, setConFirmedPass] = useState("");
   const [error, setError] = useState(false);
   const [image, setImage] = useState("");
+  const [file, setFile] = useState(null);
 
   const navigate = useNavigate();
   const handleToggle = () => {
@@ -24,7 +25,7 @@ const Registration = () => {
     console.log("check", check);
   };
   useEffect(() => {
-    if (user !== "") {
+    if (user) {
       const db = JSON.parse(localStorage.getItem("chat-app-user"));
       if (db?.token) {
         navigate("/chat");
@@ -32,24 +33,23 @@ const Registration = () => {
         navigate("/");
       }
     } else {
+      currentUser();
       return;
     }
-    currentUser();
-  }, []);
+  }, [user]);
   const handleRegistration = (e) => {
     e.preventDefault();
-    console.log(conFirmedPass);
-    const data = new FormData();
-
-    data.append("myFile", image);
-    data.append("name", name);
-    data.append("email", email);
-    data.append("password", password);
-    console.log("formdata", data);
-
+    if (name && password && email === "") {
+      alert("please full fill registration form");
+      return;
+    }
+    if (file === null) {
+      alert("please set your profile picture!");
+      return;
+    }
     if (password !== conFirmedPass) {
       setError(true);
-      toast.error("🦄 Password Not matched!", {
+      toast.error(" Password Not matched!", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -61,12 +61,19 @@ const Registration = () => {
 
       return;
     }
-
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("image", file);
+    formData.forEach((f) => {
+      console.log("f: ", f);
+    });
     axios
-      .post(registerApi, data)
+      .post(registerApi, formData)
       .then((res) => {
         console.log(res);
-        if (res.message === "user succesfully register") {
+        if (res.data.message === "user succesfully register") {
           loginUser(email, password);
         }
       })
@@ -87,6 +94,7 @@ const Registration = () => {
       });
   };
   const handleimage = (e) => {
+    setFile(e.target.files[0]);
     setImage(URL.createObjectURL(e.target.files[0]));
   };
 

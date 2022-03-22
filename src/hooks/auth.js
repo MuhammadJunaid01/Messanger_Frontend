@@ -5,6 +5,8 @@ import { loginApi } from "../api/api";
 import { useNavigate } from "react-router-dom";
 const Auth = () => {
   const [user, setUser] = useState("");
+  const [userProfilePic, setUserProfilePic] = useState(null);
+  const [data, setData] = useState(undefined);
   const navigate = useNavigate();
 
   const loginUser = (email, password) => {
@@ -66,11 +68,16 @@ const Auth = () => {
       });
   };
   //current user
-  const currentUser = () => {
+  const currentUser = async () => {
+    if (!localStorage.getItem("chat-app-user")) {
+      return;
+    } else {
+      setData(JSON.parse(localStorage.getItem("chat-app-user")));
+    }
     const db = JSON.parse(localStorage.getItem("chat-app-user"));
-    const Cuser = db.username;
+    const Cuser = db?.username;
+    setUserProfilePic(db?.image);
     setUser(Cuser);
-    console.log(Cuser);
   };
 
   // log out
@@ -84,6 +91,8 @@ const Auth = () => {
     currentUser,
     user,
     logot,
+    userProfilePic,
+    data,
   };
 };
 
