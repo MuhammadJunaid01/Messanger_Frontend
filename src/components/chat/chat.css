@@ -1,0 +1,78 @@
+.chat_container {
+  padding: 10px 0px;
+  margin: 0;
+  background-color: #eff6fc;
+}
+.side_bar_profile_menu {
+  width: 88%;
+  margin: 0 auto;
+  background-color: #6e00ff;
+  color: white;
+  height: 96vh;
+  border-radius: 7px;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  -ms-border-radius: 7px;
+  -o-border-radius: 7px;
+  overflow: hidden;
+}
+
+.user_profile_picture {
+  margin-top: 15px;
+  text-align: center;
+}
+.user_profile_picture img {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}
+.side_nav_icon {
+  text-align: center;
+  margin-top: 28px;
+  cursor: pointer;
+}
+.select {
+  background-color: #612dd1;
+  color: white;
+  padding: 10px 30px;
+  border-right: 2px solid #f3b559;
+}
+.notification {
+  margin-top: 40vh;
+}
+.users_container {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  padding: 20px;
+  height: 96vh;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  background-color: #eff6fc;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 13px;
+  cursor: pointer;
+}
+.pepole_profile_picture img {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  object-fit: cover;
+}

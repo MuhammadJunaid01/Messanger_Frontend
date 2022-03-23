@@ -1,10 +1,20 @@
 import React, { useEffect, useState } from "react";
 import jwt_decode from "jwt-decode";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink, Outlet } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import Auth from "../../hooks/auth";
 import { baseUrlImage, getallUsers } from "./../../api/api";
 import axios from "axios";
+import "./chat.css";
+import {
+  FaHouseDamage,
+  FaBars,
+  FaRegCommentDots,
+  FaRegBell,
+  FaRegSun,
+  FaSignOutAlt,
+} from "react-icons/fa";
+
 const Chat = () => {
   const navigate = useNavigate();
   const { user, currentUser, logot, userProfilePic, data } = Auth();
@@ -16,6 +26,9 @@ const Chat = () => {
   const expirationTime = exp * 1000;
 
   useEffect(() => {
+    if (db) {
+      navigate("/chat/home");
+    }
     if (expirationTime < Date.now()) {
       alert("hi storage");
       // set LocalStorage here based on response;
@@ -40,25 +53,56 @@ const Chat = () => {
       });
   }, []);
   console.log("chat app", data);
+  const nabiGate = () => {
+    navigate("/");
+  };
+
   return user ? (
-    <div>
-      <Container>
+    <div className="chat_container">
+      <Container fluid>
         <Row>
-          <Col xs={12} md={4} lg={4}>
-            <img
-              style={{ height: "50px", width: "50px" }}
-              src={baseUrlImage + userProfilePic}
-              alt="lllll"
-            />
-            <h1>{user}</h1>
-            {users?.map((user, index) => (
-              <div key={index}>
-                <li>{user.username}</li>
+          <Col xs={12} md={2} lg={1}>
+            <div className="side_bar_profile_menu">
+              <div className="user_profile_picture">
+                <img src={baseUrlImage + userProfilePic} alt="" />
               </div>
-            ))}
+              <div className="side_nav_icon">
+                <NavLink
+                  style={{ color: "white" }}
+                  className={(navData) => (navData.isActive ? "select" : "")}
+                  to="/chat/home"
+                >
+                  <FaHouseDamage />
+                </NavLink>
+
+                <div className="side_nav_icon ">
+                  <FaRegCommentDots />
+                </div>
+                <div className="side_nav_icon">
+                  <NavLink
+                    style={{ color: "white" }}
+                    className={(navData) => (navData.isActive ? "select" : "")}
+                    to="/chat/notification"
+                  >
+                    <FaRegBell />
+                  </NavLink>
+                </div>
+                <div className="side_nav_icon">
+                  <h5>
+                    <FaRegSun />
+                  </h5>
+                </div>
+                <div className="notification">
+                  <h5 onClick={logot}>
+                    <FaSignOutAlt />
+                  </h5>
+                </div>
+              </div>
+            </div>
           </Col>
-          <Col xs={12} md={4} lg={4}>
-            <button onClick={logot}>logout</button>
+
+          <Col xs={12} md={10} lg={11}>
+            <Outlet />
           </Col>
         </Row>
       </Container>
