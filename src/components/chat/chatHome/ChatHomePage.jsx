@@ -12,7 +12,7 @@ const ChatHomePage = () => {
   const { currentUser, currentuser } = Auth();
   const [users, setUsers] = useState([]);
   const [isloading, setIsloading] = useState(true);
-  const [selectUser, setSelectuser] = useState(undefined);
+  const [selectPepole, setSelectPepole] = useState(undefined);
   useEffect(() => {
     currentUser();
     axios
@@ -32,9 +32,16 @@ const ChatHomePage = () => {
   }, []);
   console.log(isloading);
   const slectedUser = (user) => {
-    setSelectuser(user);
+    setSelectPepole(user);
   };
-  console.log("selected user", selectUser);
+  const pepoles = [];
+  for (const user of users) {
+    if (user.email === currentuser.email) {
+    } else {
+      pepoles.push(user);
+    }
+  }
+
   return (
     <div className="chat_home_conainer">
       <Row>
@@ -57,7 +64,7 @@ const ChatHomePage = () => {
             ) : (
               ""
             )}
-            {users?.map((user, index) => (
+            {pepoles?.map((user, index) => (
               <div key={index}>
                 <div onClick={() => slectedUser(user)} className="user">
                   <div className="pepole_profile_picture">
@@ -76,8 +83,8 @@ const ChatHomePage = () => {
           </div>
         </Col>
         <Col xs={12} md={8} lg={8}>
-          {selectUser ? (
-            <Messages selectUser={selectUser} />
+          {selectPepole ? (
+            <Messages selectPepole={selectPepole} />
           ) : (
             <div className="message_container">
               <div className="user_hi_message">
@@ -87,7 +94,7 @@ const ChatHomePage = () => {
                     Welcome,
                     <i className="user_name_say_hi"> {currentuser?.username}</i>
                   </h5>
-                  <p>Please Select a chat to Start Messagin...</p>
+                  <p>Please Select a Pepole to Start Messagin...</p>
                 </div>
               </div>
             </div>

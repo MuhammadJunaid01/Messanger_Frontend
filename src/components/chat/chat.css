@@ -43,8 +43,10 @@
   padding: 10px 30px;
   border-right: 2px solid #f3b559;
 }
-.notification {
+.logout {
   margin-top: 40vh;
+  text-align: center;
+  cursor: pointer;
 }
 .users_container {
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
@@ -75,4 +77,29 @@
   -o-border-radius: 50%;
   -webkit-border-radius: 50%;
   object-fit: cover;
+}
+
+@media (min-width: 240px) and (max-width: 648px) {
+  .side_bar_profile_menu {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+  }
+  .side_nav_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .kkk {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .logout {
+    margin-top: 0px;
+  }
+  .side_nav_icon {
+    margin-top: 0;
+    margin-right: 20px;
+  }
 }

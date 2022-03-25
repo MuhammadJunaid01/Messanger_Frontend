@@ -63,39 +63,43 @@ const Chat = () => {
         <Row>
           <Col xs={12} md={2} lg={1}>
             <div className="side_bar_profile_menu">
-              <div className="user_profile_picture">
-                <img src={baseUrlImage + userProfilePic} alt="" />
-              </div>
-              <div className="side_nav_icon">
-                <NavLink
-                  style={{ color: "white" }}
-                  className={(navData) => (navData.isActive ? "select" : "")}
-                  to="/chat/home"
-                >
-                  <FaHouseDamage />
-                </NavLink>
+              <div className="side_nav_container">
+                <div className="user_profile_picture">
+                  <img src={baseUrlImage + userProfilePic} alt="" />
+                </div>
+                <div className="kkk">
+                  <div className="side_nav_icon">
+                    <NavLink
+                      style={{ color: "white" }}
+                      className={(navData) =>
+                        navData.isActive ? "select" : ""
+                      }
+                      to="/chat/home"
+                    >
+                      <FaHouseDamage />
+                    </NavLink>
+                  </div>
 
-                <div className="side_nav_icon ">
-                  <FaRegCommentDots />
-                </div>
-                <div className="side_nav_icon">
-                  <NavLink
-                    style={{ color: "white" }}
-                    className={(navData) => (navData.isActive ? "select" : "")}
-                    to="/chat/notification"
-                  >
-                    <FaRegBell />
-                  </NavLink>
-                </div>
-                <div className="side_nav_icon">
-                  <h5>
+                  <div className="side_nav_icon ">
+                    <FaRegCommentDots />
+                  </div>
+                  <div className="side_nav_icon">
+                    <NavLink
+                      style={{ color: "white" }}
+                      className={(navData) =>
+                        navData.isActive ? "select" : ""
+                      }
+                      to="/chat/notification"
+                    >
+                      <FaRegBell />
+                    </NavLink>
+                  </div>
+                  <div className="side_nav_icon">
                     <FaRegSun />
-                  </h5>
-                </div>
-                <div className="notification">
-                  <h5 onClick={logot}>
-                    <FaSignOutAlt />
-                  </h5>
+                  </div>
+                  <div className="logout">
+                    <FaSignOutAlt onClick={logot} />
+                  </div>
                 </div>
               </div>
             </div>
