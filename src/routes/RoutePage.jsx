@@ -4,6 +4,7 @@ import ChatHomePage from "../components/chat/chatHome/ChatHomePage";
 import Notification from "../components/chat/notification/Notification";
 import Registration from "../components/registration/Registration";
 import Chat from "./../components/chat/Chat";
+import Inbox from "./../components/inbox/Inbox";
 const RoutePage = () => {
   return (
     <div>
@@ -13,6 +14,7 @@ const RoutePage = () => {
           <Route path="/chat" element={<Chat />}>
             <Route path="home" element={<ChatHomePage />} />
             <Route path="notification" element={<Notification />} />
+            <Route path="inbox" element={<Inbox />} />
           </Route>
         </Routes>
       </Router>

@@ -20,7 +20,6 @@ const ChatHomePage = () => {
       .then(function (response) {
         setIsloading(true);
         setUsers(response.data.users);
-        // console.log(response);
       })
       .catch(function (error) {
         // handle error
@@ -30,7 +29,7 @@ const ChatHomePage = () => {
         setIsloading(false);
       });
   }, []);
-  console.log(isloading);
+
   const slectedUser = (user) => {
     setSelectPepole(user);
   };

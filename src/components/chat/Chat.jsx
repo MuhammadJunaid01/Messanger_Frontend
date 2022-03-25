@@ -34,7 +34,6 @@ const Chat = () => {
       // set LocalStorage here based on response;
       localStorage.clear();
       navigate("/");
-      console.log("expire");
     }
     currentUser();
     axios
@@ -42,7 +41,6 @@ const Chat = () => {
       .then(function (response) {
         setIsloading(true);
         setUsers(response.data.users);
-        // console.log(response);
       })
       .catch(function (error) {
         // handle error
@@ -52,7 +50,7 @@ const Chat = () => {
         setIsloading(false);
       });
   }, []);
-  console.log("chat app", data);
+
   const nabiGate = () => {
     navigate("/");
   };
@@ -81,7 +79,15 @@ const Chat = () => {
                   </div>
 
                   <div className="side_nav_icon ">
-                    <FaRegCommentDots />
+                    <NavLink
+                      style={{ color: "white" }}
+                      className={(navData) =>
+                        navData.isActive ? "select" : ""
+                      }
+                      to="/chat/inbox"
+                    >
+                      <FaRegCommentDots />
+                    </NavLink>
                   </div>
                   <div className="side_nav_icon">
                     <NavLink
