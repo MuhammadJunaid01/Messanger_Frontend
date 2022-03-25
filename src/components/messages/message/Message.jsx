@@ -1,10 +1,25 @@
 import React from "react";
 import "./message.css";
-const Message = ({ msg }) => {
-  console.log("msg", msg);
+const Message = ({ messages }) => {
+  console.log("kkkkkkkkkkk", messages);
   return (
     <div className="message_container">
-      <p>{msg}</p>
+      {messages.map((msg, index) => {
+        return (
+          <div
+            key={index}
+            className={msg.fromSelf ? "myMessage" : "frindMessage"}
+          >
+            <h5
+              className={
+                msg.fromSelf ? "myMessageContent" : "friendMessageContent"
+              }
+            >
+              {msg.message}
+            </h5>
+          </div>
+        );
+      })}
     </div>
   );
 };

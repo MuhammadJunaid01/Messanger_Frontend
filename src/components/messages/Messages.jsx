@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FaPhoneAlt, FaVideo, FaTelegramPlane, FaWaze } from "react-icons/fa";
-import { baseUrlImage, sendMesage } from "../../api/api";
+import { baseUrlImage, getAllMessage, sendMesage } from "../../api/api";
 import "./messages.css";
 import { AiOutlineMore } from "react-icons/ai";
 import Picker from "emoji-picker-react";
@@ -13,10 +13,13 @@ const Messages = ({ selectPepole }) => {
   const [chosenEmoji, setChosenEmoji] = useState(null);
   const [message, setMessage] = useState("");
   const [showEmoji, setShowEmoji] = useState(false);
-  const [msg, setMsg] = useState(null);
+  const [messages, setMessages] = useState([]);
   const onEmojiClick = (event, emojiObject) => {
     setChosenEmoji(emojiObject.emoji);
   };
+  useEffect(() => {
+    currentUser();
+  }, [selectPepole]);
   const handleShowEmoji = () => {
     setShowEmoji((show) => !show);
   };
@@ -27,16 +30,24 @@ const Messages = ({ selectPepole }) => {
       message: message,
     });
   };
-  useEffect(() => {
-    currentUser();
-  }, [selectPepole]);
-  console.log("curr", message);
+
+  useEffect(async () => {
+    if (currentuser) {
+      const res = await axios.post(getAllMessage, {
+        from: currentuser?._id,
+        to: selectPepole?._id,
+      });
+      setMessages(res.data.msg);
+      console.log("res", res.data.msg);
+    }
+  }, [currentuser, selectPepole]);
+  console.log("curr", messages);
   return (
     <div className="messages_container">
       <div className="messages_nav">
         <div className="user_profile">
           <div className="slected_user_profile_picture">
-            <img src={baseUrlImage + selectPepole.image} alt="kkkkk" />
+            <img src={baseUrlImage + selectPepole?.image} alt="kkkkk" />
           </div>
           <div className="selected_user_name">
             <h4>{selectPepole.username}</h4>
@@ -56,7 +67,8 @@ const Messages = ({ selectPepole }) => {
         </div>
       </div>
       <hr />
-      <Message msg={msg} />
+      <Message messages={messages} />
+
       {showEmoji ? (
         <div className="emoji_picker">
           <Picker

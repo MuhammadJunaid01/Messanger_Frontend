@@ -5,3 +5,4 @@ export const loginApi = `${host}/api/auth/userLogin`;
 export const getallUsers = `${host}/api/auth/allusers`;
 export const test = `${host}/api/auth/singel`;
 export const sendMesage = `${host}/api/messages/addmessage`;
+export const getAllMessage = `${host}/api/messages/getMessages`;
