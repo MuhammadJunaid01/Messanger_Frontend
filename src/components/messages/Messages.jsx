@@ -1,36 +1,60 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { FaPhoneAlt, FaVideo, FaTelegramPlane, FaWaze } from "react-icons/fa";
-import { baseUrlImage, getAllMessage, sendMesage } from "../../api/api";
+import { baseUrlImage, getAllMessage, host, sendMesage } from "../../api/api";
 import "./messages.css";
 import { AiOutlineMore } from "react-icons/ai";
 import Picker from "emoji-picker-react";
 import Message from "./message/Message";
 import Auth from "./../../hooks/auth";
 import axios from "axios";
-
+import { io } from "socket.io-client";
 const Messages = ({ selectPepole }) => {
+  const socket = io(host);
   const { currentUser, currentuser } = Auth();
   const [chosenEmoji, setChosenEmoji] = useState(null);
   const [message, setMessage] = useState("");
   const [showEmoji, setShowEmoji] = useState(false);
   const [messages, setMessages] = useState([]);
+  const [arrivalMessage, setArrivaMessage] = useState(null);
   const onEmojiClick = (event, emojiObject) => {
     setChosenEmoji(emojiObject.emoji);
   };
   useEffect(() => {
     currentUser();
   }, [selectPepole]);
+  useEffect(() => {
+    if (currentuser) {
+      socket.emit("add-user", currentuser._id);
+    }
+  }, [currentuser]);
   const handleShowEmoji = () => {
     setShowEmoji((show) => !show);
   };
   const sendMessage = async () => {
-    await axios.post(sendMesage, {
-      from: currentuser?._id,
-      to: selectPepole?._id,
+    socket.connect();
+    // await axios.post(sendMesage, {
+    //   from: currentuser?._id,
+    //   to: selectPepole?._id,
+    //   message: message,
+    // });
+    socket.emit("send-message", {
+      to: selectPepole._id,
+      from: currentuser._id,
       message: message,
     });
+    const msg = [...messages];
+    msg.push({ fromSelf: true, message: msg });
+    setMessage(msg);
   };
-
+  useEffect(() => {
+    socket.on("message-recive", (msg) => {
+      console.log("message recived", msg);
+      setArrivaMessage({ fromSelf: false, message: msg });
+    });
+  }, [messages, message]);
+  useEffect(() => {
+    arrivalMessage && setMessages((prev) => [...prev, arrivalMessage]);
+  }, [arrivalMessage]);
   useEffect(async () => {
     if (currentuser) {
       const res = await axios.post(getAllMessage, {
@@ -38,10 +62,9 @@ const Messages = ({ selectPepole }) => {
         to: selectPepole?._id,
       });
       setMessages(res.data.msg);
-      console.log("res", res.data.msg);
     }
   }, [currentuser, selectPepole]);
-  console.log("curr", messages);
+
   return (
     <div className="messages_container">
       <div className="messages_nav">

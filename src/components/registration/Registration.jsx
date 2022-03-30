@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./registration.css";
 import axios from "axios";
+import { io } from "socket.io-client";
 import { ToastContainer, toast } from "react-toastify";
-import { loginApi, registerApi, test } from "./../../api/api";
-import CheckToken from "./../../hooks/checkToken";
+import { host, loginApi, registerApi, test } from "./../../api/api";
 import { useNavigate } from "react-router-dom";
 import Login from "../login/Login";
 import Auth from "./../../hooks/auth";
 
 const Registration = () => {
-  const { user, currentUser, loginUser } = Auth();
+  const socket = io("http://localhost:5000");
+  const { user, currentUser, loginUser, currentuser } = Auth();
   const [check, setCheck] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -24,6 +25,13 @@ const Registration = () => {
     setCheck((check) => !check);
     console.log("check", check);
   };
+
+  useEffect(() => {
+    currentUser();
+  }, []);
+  // useEffect(() => {
+  //   socket.connect();
+  // }, [currentuser]);
   useEffect(() => {
     if (user) {
       const db = JSON.parse(localStorage.getItem("chat-app-user"));
@@ -39,6 +47,7 @@ const Registration = () => {
   }, [user]);
   const handleRegistration = (e) => {
     e.preventDefault();
+    // socket.connect();
     if (name && password && email === "") {
       alert("please full fill registration form");
       return;

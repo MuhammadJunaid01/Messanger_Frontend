@@ -1,4 +1,4 @@
-const host = "http://localhost:5000";
+export const host = "http://localhost:5000";
 export const baseUrlImage = `http://localhost:5000/public/`;
 export const registerApi = `${host}/api/auth/register`;
 export const loginApi = `${host}/api/auth/userLogin`;

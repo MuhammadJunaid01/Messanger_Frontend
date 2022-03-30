@@ -30,7 +30,6 @@ const Chat = () => {
       navigate("/chat/home");
     }
     if (expirationTime < Date.now()) {
-      alert("hi storage");
       // set LocalStorage here based on response;
       localStorage.clear();
       navigate("/");
