@@ -10,6 +10,19 @@
   -o-border-radius: 18px;
   position: relative;
 }
+.message_content {
+  height: 60vh;
+  overflow-y: scroll;
+  padding: 0px 20px;
+}
+.message_content::-webkit-scrollbar {
+  width: 5px;
+  border-top-left-radius: 20px;
+}
+.message_content::-webkit-scrollbar-track {
+  width: 5px;
+  background-color: gainsboro;
+}
 .messages_nav {
   display: flex;
   align-items: center;
@@ -76,7 +89,8 @@
   left: 4px;
 }
 .emoji_picker {
-  margin-top: 20%;
+  position: absolute;
+  top: 40%;
 }
 .send_message_icon {
   position: absolute;

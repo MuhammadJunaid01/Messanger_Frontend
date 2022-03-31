@@ -23,15 +23,20 @@
   max-width: 40%;
   padding: 10px;
   border-radius: 6px;
+  font-weight: 700;
   overflow-wrap: break-word;
-  background-color: goldenrod;
+  background-color: #e7e7e7;
+  font-family: "Roboto", sans-serif;
 }
 .friendMessageContent {
   max-width: 40%;
   padding: 10px;
   border-radius: 6px;
   overflow-wrap: break-word;
-  background-color: gainsboro;
+  color: white;
+  font-weight: 700;
+  font-family: "Roboto", sans-serif;
+  background-color: #6e00ff;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   -ms-border-radius: 6px;

@@ -7,7 +7,7 @@ import { host, loginApi, registerApi, test } from "./../../api/api";
 import { useNavigate } from "react-router-dom";
 import Login from "../login/Login";
 import Auth from "./../../hooks/auth";
-
+import { Container, Row, Col } from "react-bootstrap";
 const Registration = () => {
   const socket = io("http://localhost:5000");
   const { user, currentUser, loginUser, currentuser } = Auth();
@@ -120,83 +120,97 @@ const Registration = () => {
         draggable
         pauseOnHover
       />
-
-      <div className="registration_content">
-        <div className="RG_card">
-          <div className="btn_gropu">
-            <button
-              onClick={handleToggle}
-              className={`btn_collapse ${check ? "selected" : ""}`}
-            >
-              Register
-            </button>
-            <button
-              onClick={handleToggle}
-              className={`btn_collapse ${check ? "" : "selected"}`}
-            >
-              Login
-            </button>
-          </div>
-          {check ? (
-            <div>
-              <div className="formTitle">
-                <h1> Register</h1>
-                <hr />
-              </div>
-              <form onSubmit={handleRegistration}>
-                <input
-                  required
-                  onBlur={(e) => setName(e.target.value)}
-                  className="inputFeild"
-                  type="text"
-                  name="name"
-                  placeholder="Enter Your Name:"
-                />
-
-                <input
-                  required
-                  onBlur={(e) => setEmail(e.target.value)}
-                  className="inputFeild"
-                  type="email"
-                  name="email"
-                  placeholder="Enter Your Email:"
-                />
-                <div className="file_image">
-                  {image && <img className="preview_img" src={image} alt="" />}
-                  <input
-                    className="file"
-                    onChange={handleimage}
-                    type="file"
-                    name="file"
-                    id=""
-                  />
+      <Container>
+        <Row>
+          <Col xs={12} md={1} lg={1}></Col>
+          <Col xs={12} md={2} lg={2}></Col>
+          <Col xs={12} md={6} lg={6}>
+            <div className="registration_content">
+              <div className="RG_card">
+                <div className="btn_gropu">
+                  <button
+                    onClick={handleToggle}
+                    className={`btn_collapse ${check ? "selected" : ""}`}
+                  >
+                    Register
+                  </button>
+                  <button
+                    onClick={handleToggle}
+                    className={`btn_collapse ${check ? "" : "selected"}`}
+                  >
+                    Login
+                  </button>
                 </div>
-                <input
-                  required
-                  onBlur={(e) => setPassword(e.target.value)}
-                  className="inputFeild"
-                  type="password"
-                  placeholder="Enter Your Password:"
-                  name="password"
-                />
-                <input
-                  required
-                  onBlur={(e) => setConFirmedPass(e.target.value)}
-                  className="inputFeild"
-                  type="password"
-                  placeholder="Confirmed Your Password"
-                />
+                {check ? (
+                  <div>
+                    <div className="formTitle">
+                      <h1> Register</h1>
+                      <hr />
+                    </div>
+                    <form onSubmit={handleRegistration}>
+                      <input
+                        required
+                        onBlur={(e) => setName(e.target.value)}
+                        className="inputFeild"
+                        type="text"
+                        name="name"
+                        placeholder="Enter Your Name:"
+                      />
 
-                <input className="submit_btn" type="submit" value="Register" />
-              </form>
+                      <input
+                        required
+                        onBlur={(e) => setEmail(e.target.value)}
+                        className="inputFeild"
+                        type="email"
+                        name="email"
+                        placeholder="Enter Your Email:"
+                      />
+                      <div className="file_image">
+                        {image && (
+                          <img className="preview_img" src={image} alt="" />
+                        )}
+                        <input
+                          className="file"
+                          onChange={handleimage}
+                          type="file"
+                          name="file"
+                          id=""
+                        />
+                      </div>
+                      <input
+                        required
+                        onBlur={(e) => setPassword(e.target.value)}
+                        className="inputFeild"
+                        type="password"
+                        placeholder="Enter Your Password:"
+                        name="password"
+                      />
+                      <input
+                        required
+                        onBlur={(e) => setConFirmedPass(e.target.value)}
+                        className="inputFeild"
+                        type="password"
+                        placeholder="Confirmed Your Password"
+                      />
+
+                      <input
+                        className="submit_btn"
+                        type="submit"
+                        value="Register"
+                      />
+                    </form>
+                  </div>
+                ) : (
+                  <div>
+                    <Login />
+                  </div>
+                )}
+              </div>
             </div>
-          ) : (
-            <div>
-              <Login />
-            </div>
-          )}
-        </div>
-      </div>
+          </Col>
+          <Col xs={12} md={1} lg={1}></Col>
+        </Row>
+      </Container>
     </div>
   );
 };

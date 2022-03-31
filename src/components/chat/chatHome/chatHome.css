@@ -65,3 +65,21 @@
 .user_name_say_hi {
   color: blueviolet;
 }
+.user {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 13px;
+  cursor: pointer;
+}
+.pepole_profile_picture img {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  object-fit: cover;
+}

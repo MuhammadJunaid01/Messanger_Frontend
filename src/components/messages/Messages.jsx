@@ -32,12 +32,12 @@ const Messages = ({ selectPepole }) => {
   };
   const sendMessage = async () => {
     socket.connect();
-    // await axios.post(sendMesage, {
-    //   from: currentuser?._id,
-    //   to: selectPepole?._id,
-    //   message: message,
-    // });
-    socket.emit("send-message", {
+    await axios.post(sendMesage, {
+      from: currentuser?._id,
+      to: selectPepole?._id,
+      message: message,
+    });
+    socket.emit("send-msg", {
       to: selectPepole._id,
       from: currentuser._id,
       message: message,
@@ -47,11 +47,11 @@ const Messages = ({ selectPepole }) => {
     setMessage(msg);
   };
   useEffect(() => {
-    socket.on("message-recive", (msg) => {
+    socket.on("msg-recieve", (msg) => {
       console.log("message recived", msg);
       setArrivaMessage({ fromSelf: false, message: msg });
     });
-  }, [messages, message]);
+  });
   useEffect(() => {
     arrivalMessage && setMessages((prev) => [...prev, arrivalMessage]);
   }, [arrivalMessage]);
@@ -64,13 +64,16 @@ const Messages = ({ selectPepole }) => {
       setMessages(res.data.msg);
     }
   }, [currentuser, selectPepole]);
-
+  console.log("arrrr", messages);
   return (
     <div className="messages_container">
       <div className="messages_nav">
         <div className="user_profile">
           <div className="slected_user_profile_picture">
-            <img src={baseUrlImage + selectPepole?.image} alt="kkkkk" />
+            <img
+              src={baseUrlImage + selectPepole?.image}
+              alt="selected user image"
+            />
           </div>
           <div className="selected_user_name">
             <h4>{selectPepole.username}</h4>
@@ -90,7 +93,9 @@ const Messages = ({ selectPepole }) => {
         </div>
       </div>
       <hr />
-      <Message messages={messages} />
+      <div className="message_content">
+        <Message messages={messages} />
+      </div>
 
       {showEmoji ? (
         <div className="emoji_picker">
@@ -103,7 +108,7 @@ const Messages = ({ selectPepole }) => {
       ) : null}
       <div className="message_input">
         <div className="send_message_icon">
-          <FaTelegramPlane />
+          <FaTelegramPlane onClick={sendMessage} />
         </div>
 
         <div className="select_emoji">

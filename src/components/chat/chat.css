@@ -60,25 +60,6 @@
   background-color: #eff6fc;
 }
 
-.user {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 13px;
-  cursor: pointer;
-}
-.pepole_profile_picture img {
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  -o-border-radius: 50%;
-  -webkit-border-radius: 50%;
-  object-fit: cover;
-}
-
 @media (min-width: 240px) and (max-width: 648px) {
   .side_bar_profile_menu {
     width: 100%;
@@ -90,7 +71,7 @@
     justify-content: space-between;
     align-items: center;
   }
-  .kkk {
+  .side_nav_content {
     display: flex;
     justify-content: space-between;
     align-items: center;

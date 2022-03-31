@@ -64,7 +64,7 @@ const Chat = () => {
                 <div className="user_profile_picture">
                   <img src={baseUrlImage + userProfilePic} alt="" />
                 </div>
-                <div className="kkk">
+                <div className="side_nav_content">
                   <div className="side_nav_icon">
                     <NavLink
                       style={{ color: "white" }}
