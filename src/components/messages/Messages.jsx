@@ -33,11 +33,15 @@ const Messages = ({ selectPepole }) => {
   };
   const sendMessage = async () => {
     socket.connect();
-    await axios.post(sendMesage, {
-      from: currentuser?._id,
-      to: selectPepole?._id,
-      message: message,
-    });
+    if (message === "") {
+      alert("Please write your message");
+      return;
+    }
+    // await axios.post(sendMesage, {
+    //   from: currentuser?._id,
+    //   to: selectPepole?._id,
+    //   message: message,
+    // });
     socket.emit("send-msg", {
       to: selectPepole._id,
       from: currentuser._id,
