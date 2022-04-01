@@ -1,5 +1,5 @@
-export const host = "http://localhost:5000";
-export const baseUrlImage = `http://localhost:5000/public/`;
+export const host = "https://protected-bastion-74533.herokuapp.com";
+export const baseUrlImage = `https://protected-bastion-74533.herokuapp.com/public/`;
 export const registerApi = `${host}/api/auth/register`;
 export const loginApi = `${host}/api/auth/userLogin`;
 export const getallUsers = `${host}/api/auth/allusers`;

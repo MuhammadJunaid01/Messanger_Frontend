@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { FaPhoneAlt, FaVideo, FaTelegramPlane, FaWaze } from "react-icons/fa";
-import { baseUrlImage, getAllMessage, host, sendMesage } from "../../api/api";
+import { baseUrlImage, getAllMessage, sendMesage } from "../../api/api";
 import "./messages.css";
 import { AiOutlineMore } from "react-icons/ai";
 import Picker from "emoji-picker-react";
@@ -8,6 +8,7 @@ import Message from "./message/Message";
 import Auth from "./../../hooks/auth";
 import axios from "axios";
 import { io } from "socket.io-client";
+import { host } from "./../../api/api";
 const Messages = ({ selectPepole }) => {
   const socket = io(host);
   const { currentUser, currentuser } = Auth();
