@@ -37,11 +37,11 @@ const Messages = ({ selectPepole }) => {
       alert("Please write your message");
       return;
     }
-    // await axios.post(sendMesage, {
-    //   from: currentuser?._id,
-    //   to: selectPepole?._id,
-    //   message: message,
-    // });
+    await axios.post(sendMesage, {
+      from: currentuser?._id,
+      to: selectPepole?._id,
+      message: message,
+    });
     socket.emit("send-msg", {
       to: selectPepole._id,
       from: currentuser._id,
